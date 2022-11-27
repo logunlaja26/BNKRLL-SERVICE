@@ -1,36 +1,31 @@
 package com.bnkrll.org.impl;
 
-import com.bnkrll.org.impl.SessionServiceImpl;
 import com.bnkrll.org.model.Session;
 import com.bnkrll.org.service.SessionService;
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.http.ResponseEntity;
-
+import org.mockito.runners.MockitoJUnitRunner;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 
-
+@RunWith(MockitoJUnitRunner.class)
 public class SessionImplTest {
 
+    @Mock
     private SessionService sessionServiceMock;
+    @InjectMocks
+    private SessionServiceImpl sessionServiceImpl;
     @Mock
     private Session session;
-
-    @Before
-    public void setup(){
-        sessionServiceMock = mock(SessionService.class);
-        session = new Session("12345");
-    }
-
 
     @Test
     public void testGetPlayerCurrentSession_usingAMock(){
         when(sessionServiceMock.getCurrentSession(anyString())).thenReturn(session);
-        SessionServiceImpl sessionServiceImpl = new SessionServiceImpl(sessionServiceMock);
         Session response = sessionServiceImpl.getPlayerCurrentSession(anyString());
+        verify(sessionServiceMock,times(1)).getCurrentSession(anyString());
         assertNotNull(response);
     }
 }
