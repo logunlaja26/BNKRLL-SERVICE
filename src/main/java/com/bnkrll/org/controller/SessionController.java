@@ -19,10 +19,10 @@ import java.util.UUID;
 public class SessionController {
 
     @GetMapping("/{sessionId}")
-    public Session getSession(@PathVariable String sessionId){
+    public ResponseEntity<Session> getSession(@PathVariable String sessionId){
         String id = UUID.randomUUID().toString();
         Session response = new Session(id);
         log.info("The session id is: {}", response.getSessionId());
-        return response;
+        return new ResponseEntity(response, HttpStatus.OK);
     }
 }
