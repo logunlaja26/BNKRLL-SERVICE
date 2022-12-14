@@ -26,9 +26,12 @@ public class SessionController {
         sessionRepository.save(session);
     }
 
-    @GetMapping("/{numOfSessions}")
-    public List<Session> getPreviousSessions(@RequestParam(defaultValue = "30") int numOfSessions){
-        List<Session> previousSessions = sessionRepository.getLastSessions(numOfSessions);
+
+    @GetMapping("/pastsessions")
+    public List<Session> getPreviousSessions(
+            @RequestParam(value = "numOfSessions", defaultValue = "30")
+                    String numOfSessions){
+        List<Session> previousSessions = sessionRepository.getLastSessions(Integer.parseInt(numOfSessions));
         return previousSessions;
     }
 }

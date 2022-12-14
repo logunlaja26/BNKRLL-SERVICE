@@ -1,6 +1,7 @@
 package com.bnkrll.service;
 
 import com.bnkrll.model.Session;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
@@ -32,12 +33,17 @@ public class SessionRepositorySimulator implements SessionRepository{
     }
 
     @Override
-    public List<Session> getLastSessions(int numOfSessions) {
-        Session sessionOne = Session.builder().sessionId(SESSION_ID_ONE).build();
-        Session sessionTwo = Session.builder().sessionId(SESSION_ID_TWO).build();
-        List<Session> listofSessions = new ArrayList<>(Arrays.asList(sessionOne,sessionTwo));
-        this.data.put(sessionOne.getSessionId(),sessionOne);
-        this.data.put(sessionTwo.getSessionId(),sessionTwo);
+    public List<Session> getLastSessions(int numofSessions) {
+        for(int i = 0; i < numofSessions; i++){
+            this.data.put(createSessions().getSessionId(),createSessions());
+        }
+        List<Session> listofSessions = new ArrayList<>(this.data.values());
+        log.info("Amount of sessions created - {}", listofSessions.size());
+        this.data.clear();
         return listofSessions;
+    }
+
+    public Session createSessions(){
+        return Session.builder().sessionId(UUID.randomUUID().toString()).build();
     }
 }

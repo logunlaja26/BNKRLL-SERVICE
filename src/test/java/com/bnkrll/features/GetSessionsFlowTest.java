@@ -4,6 +4,7 @@ import com.bnkrll.model.Session;
 import com.bnkrll.service.SessionRepositorySimulator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -16,7 +17,10 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
+//import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Matchers.anyInt;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
@@ -31,6 +35,7 @@ public class GetSessionsFlowTest {
     @Autowired
     private SessionRepositorySimulator repository;
 
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     private static final String SESSION_ID_ONE = "bb791404-78f0-11ed-a1eb-0242ac120002";
     private static final String SESSION_ID_TWO = "ada8881e-78f0-11ed-a1eb-0242ac120002";
 
@@ -43,9 +48,6 @@ public class GetSessionsFlowTest {
         repository.save(sessionOne);
         repository.save(sessionTwo);
         repository.getLastSessions(2);
-
-        assertThat(repository.getLastSessions(2))
-                .isEqualTo(listofSessions);
 
         assertEquals(listofSessions.size(),repository.getLastSessions(2).size());
     }
