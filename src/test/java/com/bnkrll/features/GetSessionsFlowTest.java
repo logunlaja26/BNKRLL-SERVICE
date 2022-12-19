@@ -44,7 +44,7 @@ public class GetSessionsFlowTest {
     public void getSessionsFromDatabase() throws Exception {
         Session sessionOne = Session.builder().sessionId(SESSION_ID_ONE).build();
         Session sessionTwo = Session.builder().sessionId(SESSION_ID_TWO).build();
-        List<Session> listofSessions = new ArrayList<>(Arrays.asList(sessionOne,sessionTwo));
+        List<Session> listofSessions = Arrays.asList(sessionOne,sessionTwo);
         repository.save(sessionOne);
         repository.save(sessionTwo);
         repository.getLastSessions(2);
