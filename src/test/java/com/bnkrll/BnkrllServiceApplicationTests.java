@@ -1,4 +1,4 @@
-package com.bnkrll.org;
+package com.bnkrll;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
