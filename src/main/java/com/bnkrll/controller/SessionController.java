@@ -31,7 +31,6 @@ public class SessionController {
     public List<Session> getPreviousSessions(
             @RequestParam(value = "last", defaultValue = "30")
                     int last) {
-        List<Session> previousSessions = sessionRepository.getLastSessions(last);
-        return previousSessions;
+        return sessionRepository.getLastSessions(last);
     }
 }
