@@ -29,7 +29,7 @@ public class SessionRepositorySimulator implements SessionRepository {
     }
 
     @Override
-    public List<Session> getLastSessions(int numofSessions) {
+    public List<Session> getLastSessions(int numOfSessions) {
         for (int i = 0; i < 30; i++) {
             save(createSessions());
         }
