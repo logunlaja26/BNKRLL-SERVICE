@@ -16,7 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class SaveSessionFlowTest {
+class SaveSessionFlowTest {
 
     @Autowired
     private MockMvc mockMvc;

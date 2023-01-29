@@ -33,11 +33,11 @@ public class SessionRepositorySimulator implements SessionRepository {
         for (int i = 0; i < 30; i++) {
             save(createSessions());
         }
-        List<Session> listofSessions = new ArrayList<>(this.data.values());
-        log.info("Amount of sessions created - {}", listofSessions.size());
+        List<Session> listOfSessions = new ArrayList<>(this.data.values());
+        log.info("Amount of sessions created - {}", listOfSessions.size());
         int start = 0;
-        int end = Math.min(30, numofSessions);
-        List<Session> sessions = listofSessions.subList(start, end);
+        int end = Math.min(30, numOfSessions);
+        List<Session> sessions = listOfSessions.subList(start, end);
         this.data.clear();
         return sessions;
     }
