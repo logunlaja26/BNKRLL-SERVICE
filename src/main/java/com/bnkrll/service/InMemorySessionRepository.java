@@ -4,18 +4,22 @@ import com.bnkrll.model.Session;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
+
+import static java.util.Comparator.comparing;
+import static java.util.Comparator.reverseOrder;
 
 @Slf4j
 @Repository
-public class SessionRepositorySimulator implements SessionRepository {
+public class InMemorySessionRepository implements SessionRepository {
 
     private final Map<String, Session> data;
 
-    public SessionRepositorySimulator() {
+    public InMemorySessionRepository() {
         this.data = new HashMap<>();
     }
-
 
     @Override
     public Session findById(String sessionID) {
@@ -30,19 +34,13 @@ public class SessionRepositorySimulator implements SessionRepository {
 
     @Override
     public List<Session> getLastSessions(int numOfSessions) {
-        for (int i = 0; i < 30; i++) {
-            save(createSessions());
-        }
-        List<Session> listOfSessions = new ArrayList<>(this.data.values());
-        log.info("Amount of sessions created - {}", listOfSessions.size());
-        int start = 0;
-        int end = Math.min(30, numOfSessions);
-        List<Session> sessions = listOfSessions.subList(start, end);
-        this.data.clear();
-        return sessions;
+        return data.values().stream()
+                .sorted(comparing(Session::getDate, reverseOrder()))
+                .limit(numOfSessions)
+                .collect(Collectors.toList());
     }
 
-    public Session createSessions() {
-        return Session.builder().sessionId(UUID.randomUUID().toString()).build();
+    public void deleteAll() {
+        data.clear();
     }
 }

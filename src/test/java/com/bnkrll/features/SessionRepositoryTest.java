@@ -1,13 +1,14 @@
 package com.bnkrll.features;
 
 import com.bnkrll.model.Session;
-import com.bnkrll.service.SessionRepositorySimulator;
+import com.bnkrll.service.InMemorySessionRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.web.servlet.MockMvc;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
@@ -16,19 +17,54 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 @AutoConfigureMockMvc
 class SessionRepositoryTest {
-    private static final String SESSION_ID_ONE = "bb791404-78f0-11ed-a1eb-0242ac120002";
-    private static final String SESSION_ID_TWO = "ada8881e-78f0-11ed-a1eb-0242ac120002";
 
     @Autowired
-    private SessionRepositorySimulator repository;
+    private InMemorySessionRepository repository;
+
+    @BeforeEach
+    void setUp() {
+        repository.deleteAll();
+    }
 
     @Test
     void getSessionsFromDatabase() {
-        Session sessionOne = Session.builder().sessionId(SESSION_ID_ONE).build();
-        Session sessionTwo = Session.builder().sessionId(SESSION_ID_TWO).build();
-        List<Session> listofSessions = Arrays.asList(sessionOne, sessionTwo);
-        assertEquals(listofSessions.size(), repository.getLastSessions(2).size());
+        LocalDate now = LocalDate.now();
+        Session sessionOne = Session.builder()
+                .sessionId("1")
+                .date(now.minusDays(1L))
+                .build();
+        Session sessionTwo = Session.builder()
+                .sessionId("2")
+                .date(now)
+                .build();
+        Session sessionThree = Session.builder()
+                .sessionId("3")
+                .date(now.minusDays(2L))
+                .build();
+        repository.save(sessionOne);
+        repository.save(sessionTwo);
+        repository.save(sessionThree);
 
+        List<Session> lastSessions = repository
+                .getLastSessions(2);
+
+        assertEquals(2, lastSessions.size());
+        assertEquals(sessionTwo, lastSessions.get(0));
+        assertEquals(sessionOne, lastSessions.get(1));
     }
 
+    @Test
+    void returnsAllSessionsWhenNumberOfSessionsRequestedIsGreaterThanSavedSessions() {
+        Session sessionOne = Session.builder()
+                .sessionId("1")
+                .date(LocalDate.now())
+                .build();
+        repository.save(sessionOne);
+
+        List<Session> lastSessions = repository
+                .getLastSessions(2);
+
+        assertEquals(1, lastSessions.size());
+        assertEquals(sessionOne, lastSessions.get(0));
+    }
 }

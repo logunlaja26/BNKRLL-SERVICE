@@ -1,8 +1,9 @@
 package com.bnkrll.features;
 
 import com.bnkrll.model.Session;
-import com.bnkrll.service.SessionRepositorySimulator;
+import com.bnkrll.service.InMemorySessionRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -22,10 +23,15 @@ class SaveSessionFlowTest {
     private MockMvc mockMvc;
 
     @Autowired
-    private SessionRepositorySimulator repository;
+    private InMemorySessionRepository repository;
 
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     private static final String SESSION_ID = "8edac816-30ee-4469-bfe5-226b6e32dd8f";
+
+    @BeforeEach
+    void setUp() {
+        repository.deleteAll();
+    }
 
     @Test
     void savesSessionInDatabase() throws Exception {

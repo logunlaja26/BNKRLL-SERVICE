@@ -16,7 +16,7 @@ public class SessionController {
     private final SessionRepository sessionRepository;
 
 
-    public SessionController(@Qualifier("sessionRepositorySimulator")
+    public SessionController(@Qualifier("inMemorySessionRepository")
                                      SessionRepository sessionRepository) {
         this.sessionRepository = sessionRepository;
     }
