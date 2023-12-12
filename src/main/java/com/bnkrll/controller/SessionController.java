@@ -6,11 +6,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/session")
 @Slf4j
+@CrossOrigin(origins = "http://localhost:5173")
 public class SessionController {
 
     private final SessionRepository sessionRepository;
@@ -21,7 +23,7 @@ public class SessionController {
         this.sessionRepository = sessionRepository;
     }
 
-    @PostMapping
+    @PostMapping("/submit-session")
     public void saveSession(@RequestBody Session session) {
         sessionRepository.save(session);
     }

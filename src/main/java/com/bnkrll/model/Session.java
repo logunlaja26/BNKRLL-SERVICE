@@ -20,7 +20,7 @@ public class Session {
     private LimitType limitType;
     private BigDecimal gameProfit;
     private String location;
-    private LocalDate date;
+    private LocalDate date = LocalDate.now();
     private BigDecimal totalAfterProfit;
 
 }

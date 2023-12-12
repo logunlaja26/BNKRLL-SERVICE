@@ -28,8 +28,9 @@ public class InMemorySessionRepository implements SessionRepository {
 
     @Override
     public void save(Session session) {
+        //session.setDate(LocalDate.now());
         this.data.put(session.getSessionId(), session);
-        log.info("Session with id {} saved!", session.getSessionId());
+        log.info("Session with id {} saved {}!", session.getSessionId(), session);
     }
 
     @Override
