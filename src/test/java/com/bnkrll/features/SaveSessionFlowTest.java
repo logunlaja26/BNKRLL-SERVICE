@@ -39,7 +39,7 @@ class SaveSessionFlowTest {
                 .sessionId(SESSION_ID)
                 .build();
 
-        mockMvc.perform(post("/api/session")
+        mockMvc.perform(post("/api/session/submit-session")
                         .content(OBJECT_MAPPER.writeValueAsString(newSession))
                         .contentType(APPLICATION_JSON))
                 .andDo(print());
