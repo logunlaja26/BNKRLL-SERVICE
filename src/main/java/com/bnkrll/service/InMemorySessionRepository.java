@@ -3,8 +3,6 @@ package com.bnkrll.service;
 import com.bnkrll.model.Session;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
-
-import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -28,7 +26,6 @@ public class InMemorySessionRepository implements SessionRepository {
 
     @Override
     public void save(Session session) {
-        //session.setDate(LocalDate.now());
         this.data.put(session.getSessionId(), session);
         log.info("Session with id {} saved {}!", session.getSessionId(), session);
     }

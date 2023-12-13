@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Slf4j
 @Component
@@ -23,7 +24,7 @@ public class Initializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        LocalDate now = LocalDate.now();
+        LocalDateTime now = LocalDateTime.now();
         repository.save(Session.builder()
                 .sessionId("1")
                 .date(now.minusDays(2L))

@@ -9,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -28,7 +29,7 @@ class SessionRepositoryTest {
 
     @Test
     void getSessionsFromDatabase() {
-        LocalDate now = LocalDate.now();
+        LocalDateTime now = LocalDateTime.now();
         Session sessionOne = Session.builder()
                 .sessionId("1")
                 .date(now.minusDays(1L))
@@ -57,7 +58,7 @@ class SessionRepositoryTest {
     void returnsAllSessionsWhenNumberOfSessionsRequestedIsGreaterThanSavedSessions() {
         Session sessionOne = Session.builder()
                 .sessionId("1")
-                .date(LocalDate.now())
+                .date(LocalDateTime.now())
                 .build();
         repository.save(sessionOne);
 
