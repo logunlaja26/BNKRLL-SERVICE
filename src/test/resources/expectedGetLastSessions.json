@@ -4,19 +4,19 @@
     "payType": "CASH",
     "gameType": "TEXAS_HOLD_EM",
     "limitType": "NO_LIMIT",
-    "gameProfit": "100.00",
+    "gameProfit": 101.55,
     "location": "Atlantic City",
-    "date": "2023-01-13",
-    "totalAfterProfit": "400.50"
+    "date": "2023-01-13T10:05:00",
+    "totalAfterProfit": 400.50
   },
   {
     "sessionId": "dfcc3b6d-63d1-4dba-b049-2a52cb784532",
     "payType": "TOURNEY",
     "gameType": "TEXAS_HOLD_EM",
     "limitType": "POT_LIMIT",
-    "gameProfit": "100.00",
+    "gameProfit": 102.00,
     "location": "Las Vegas",
-    "date": "2023-01-11",
-    "totalAfterProfit": "300.75"
+    "date": "2023-01-11T10:05:00",
+    "totalAfterProfit": 300.75
   }
 ]

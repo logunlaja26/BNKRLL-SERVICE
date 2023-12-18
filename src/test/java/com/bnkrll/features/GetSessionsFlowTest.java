@@ -14,7 +14,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import static com.bnkrll.model.GameType.TEXAS_HOLD_EM;
@@ -46,7 +45,7 @@ class GetSessionsFlowTest {
                 .payType(CASH)
                 .gameType(TEXAS_HOLD_EM)
                 .limitType(NO_LIMIT)
-                .gameProfit(BigDecimal.valueOf(100.00).setScale(2, RoundingMode.HALF_UP))
+                .gameProfit(BigDecimal.valueOf(101.55))
                 .location("Atlantic City")
                 .date(LocalDateTime.of(2023, 1, 13,10,5))
                 .totalAfterProfit(new BigDecimal("400.50").setScale(2, RoundingMode.HALF_UP))
@@ -57,7 +56,7 @@ class GetSessionsFlowTest {
                 .payType(TOURNEY)
                 .gameType(TEXAS_HOLD_EM)
                 .limitType(POT_LIMIT)
-                .gameProfit(BigDecimal.valueOf(100.00))
+                .gameProfit(BigDecimal.valueOf(102.00))
                 .location("Las Vegas")
                 .date(LocalDateTime.of(2023, 1, 11,10,5))
                 .totalAfterProfit(new BigDecimal("300.75").setScale(2, RoundingMode.HALF_UP)).build();
