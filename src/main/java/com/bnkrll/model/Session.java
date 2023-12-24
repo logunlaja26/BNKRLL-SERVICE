@@ -18,6 +18,7 @@ public class Session {
     private PayType payType;
     private GameType gameType;
     private LimitType limitType;
+    private BigDecimal buyin;
     private BigDecimal gameProfit;
     private String location;
     private LocalDateTime date = LocalDateTime.now();
