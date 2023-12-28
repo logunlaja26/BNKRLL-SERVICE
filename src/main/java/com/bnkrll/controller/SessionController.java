@@ -5,9 +5,8 @@ import com.bnkrll.service.SessionRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
 import java.util.List;
+
 
 @RestController
 @RequestMapping("/api/session")
@@ -34,5 +33,16 @@ public class SessionController {
             @RequestParam(value = "last", defaultValue = "30")
                     int last) {
         return sessionRepository.getLastSessions(last);
+    }
+
+    @PatchMapping
+    public void getPreviousSessions(@RequestBody Session session) throws Exception {
+        List<Session> lastSession = sessionRepository.getLastSessions(1);
+        if(lastSession.isEmpty()){
+            throw new Exception("Session can't be located in the database");
+        }
+        Session updatedSession = lastSession.get(0);
+        updatedSession.setBuyin(session.getBuyin());
+        sessionRepository.save(updatedSession);
     }
 }
