@@ -2,11 +2,12 @@ package com.bnkrll.controller;
 
 import com.bnkrll.exceptions.SessionNotFoundException;
 import com.bnkrll.model.Session;
+import com.bnkrll.model.UpdateBuyInRequest;
 import com.bnkrll.service.SessionRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -36,16 +37,15 @@ public class SessionController {
         return sessionRepository.getLastSessions(last);
     }
 
-    @PatchMapping
-    public ResponseEntity<Session> updateSession(@RequestBody Session session){
-        List<Session> lastSession = sessionRepository.getLastSessions(1);
-        if(lastSession.isEmpty()){
+    @PatchMapping("/buy-in")
+    public void updateBuyInOfSession(@RequestBody UpdateBuyInRequest updatedSession
+                                     ) {
+        Session currentSession = sessionRepository.findById(updatedSession.getSessionId());
+        if (null == currentSession) {
             throw new SessionNotFoundException("Session can't be located in the database");
         }
-        Session updatedSession = lastSession.get(0);
-        updatedSession.setBuyin(session.getBuyin());
-        sessionRepository.save(updatedSession);
-        return ResponseEntity.ok(updatedSession);
+        currentSession.setBuyin(updatedSession.getBuyin());
+        sessionRepository.save(currentSession);
     }
 
 
