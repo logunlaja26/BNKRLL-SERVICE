@@ -7,14 +7,14 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.UUID;
+
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Session {
-    private String sessionId = UUID.randomUUID().toString();
+    private String sessionId;
     private PayType payType;
     private GameType gameType;
     private LimitType limitType;
