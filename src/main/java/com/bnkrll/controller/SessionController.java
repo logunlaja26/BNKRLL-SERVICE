@@ -31,6 +31,13 @@ public class SessionController {
 
 
     @GetMapping
+    public List<Session> getPreviousSession(
+            @RequestParam(value = "last", defaultValue = "30")
+                    int last) {
+        return sessionRepository.getLastSessions(1);
+    }
+
+    @GetMapping("/all-sessions")
     public List<Session> getPreviousSessions(
             @RequestParam(value = "last", defaultValue = "30")
                     int last) {
