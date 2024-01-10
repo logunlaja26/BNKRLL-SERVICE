@@ -30,23 +30,15 @@ public class SessionController {
     }
 
 
-    @GetMapping
+    @GetMapping("/{numOfSession}")
     public List<Session> getPreviousSession(
-            @RequestParam(value = "last", defaultValue = "30")
-                    int last) {
-        return sessionRepository.getLastSessions(1);
-    }
-
-    @GetMapping("/all-sessions")
-    public List<Session> getPreviousSessions(
-            @RequestParam(value = "last", defaultValue = "30")
-                    int last) {
-        return sessionRepository.getLastSessions(last);
+            @PathVariable int numOfSession) {
+        return sessionRepository.getLastSessions(numOfSession);
     }
 
     @PatchMapping("/buy-in")
     public void updateBuyInOfSession(@RequestBody UpdateBuyInRequest updatedSession
-                                     ) {
+    ) {
         Session currentSession = sessionRepository.findById(updatedSession.getSessionId());
         if (null == currentSession) {
             throw new SessionNotFoundException("Session can't be located in the database");

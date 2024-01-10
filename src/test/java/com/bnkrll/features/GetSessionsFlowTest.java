@@ -65,7 +65,7 @@ class GetSessionsFlowTest {
         repository.save(sessionTwo);
         repository.save(sessionOne);
 
-        String actualSessionsResponse = mockMvc.perform(get("/api/session/all-sessions")
+        String actualSessionsResponse = mockMvc.perform(get("/api/session/2")
                         .contentType("application/json"))
                 .andDo(print())
                 .andExpect(status().isOk())
