@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/session")
 @Slf4j
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = {"http://localhost:5173","https://friendly-genie-9b6cb8.netlify.app"})
 public class SessionController {
 
     private final SessionRepository sessionRepository;
@@ -41,7 +41,7 @@ public class SessionController {
     ) {
         Session currentSession = sessionRepository.findById(updatedSession.getSessionId());
         if (null == currentSession) {
-            throw new SessionNotFoundException("Session can't be located in the database");
+            throw new SessionNotFoundException("Session can't be located in the database - " + updatedSession.getSessionId());
         }
         currentSession.setBuyin(updatedSession.getBuyin());
         sessionRepository.save(currentSession);
