@@ -47,5 +47,11 @@ public class SessionController {
         sessionRepository.save(currentSession);
     }
 
+    @DeleteMapping("/delete")
+    public void deleteCurrentSession(@RequestBody Session deleteSession
+    ) {
+        Session currentSession = sessionRepository.findById(deleteSession.getSessionId());
+    }
+
 
 }
