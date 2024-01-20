@@ -6,10 +6,13 @@ import com.amazonaws.serverless.proxy.model.AwsProxyResponse;
 import com.amazonaws.serverless.proxy.spring.SpringBootLambdaContainerHandler;
 import com.amazonaws.serverless.proxy.spring.SpringBootProxyHandlerBuilder;
 import com.amazonaws.services.lambda.runtime.Context;
-import com.amazonaws.services.lambda.runtime.RequestHandler;
+import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
 import com.bnkrll.BnkrllServiceApplication;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
-public class AsynchronousLambdaHandler implements RequestHandler<AwsProxyRequest, AwsProxyResponse> {
+public class AsynchronousLambdaHandler implements RequestStreamHandler {
     private SpringBootLambdaContainerHandler<AwsProxyRequest, AwsProxyResponse> handler;
 
     public AsynchronousLambdaHandler() throws ContainerInitializationException {
@@ -21,7 +24,7 @@ public class AsynchronousLambdaHandler implements RequestHandler<AwsProxyRequest
     }
 
     @Override
-    public AwsProxyResponse handleRequest(AwsProxyRequest input, Context context) {
-        return handler.proxy(input, context);
+    public void handleRequest(InputStream inputStream, OutputStream outputStream, Context context) throws IOException {
+        handler.proxyStream(inputStream, outputStream, context);
     }
 }
