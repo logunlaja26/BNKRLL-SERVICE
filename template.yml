@@ -9,7 +9,7 @@ Resources:
   ProfileApiFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: target/BNKRLL-SERVICE-0.0.1-SNAPSHOT.jar
+      CodeUri: .
       Handler: com.bnkrll.handler.AsynchronousLambdaHandler::handleRequest
       Runtime: java11
       AutoPublishAlias: production
