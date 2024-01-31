@@ -21,6 +21,7 @@ public class InMemorySessionRepository implements SessionRepository {
 
     @Override
     public Session findById(String sessionID) {
+        // Return optional
         return this.data.get(sessionID);
     }
 
@@ -36,6 +37,11 @@ public class InMemorySessionRepository implements SessionRepository {
                 .sorted(comparing(Session::getDate, reverseOrder()))
                 .limit(numOfSessions)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteById(String id) {
+        this.data.remove(id);
     }
 
     public void deleteAll() {

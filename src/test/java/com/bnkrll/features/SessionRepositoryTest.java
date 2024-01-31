@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
@@ -66,4 +67,21 @@ class SessionRepositoryTest {
         assertEquals(1, lastSessions.size());
         assertEquals(sessionOne, lastSessions.get(0));
     }
+
+    @Test
+    void canDeleteBySessionId(){
+        Session sessionOne = Session.builder()
+                .sessionId("1")
+                .date(LocalDateTime.now())
+                .build();
+        repository.save(sessionOne);
+
+        repository.deleteById("1");
+
+        assertThat(repository.findById("1")).isNull();
+
+    }
+
+
+    // TODO Add test to throw exception when sessionId is not available
 }

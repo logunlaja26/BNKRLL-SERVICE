@@ -18,6 +18,7 @@ import static com.bnkrll.model.LimitType.NO_LIMIT;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -44,6 +45,15 @@ class DeleteSessionFlowTest {
                 .buyin(BigDecimal.valueOf(200))
                 .build();
         repository.save(sessionOne);
+
+        mockMvc.perform(delete("/api/session/" + SESSION_ID))
+                .andExpect(status().isNoContent());
+
+        assertThat(repository.findById(SESSION_ID)).isNull();
+
+
+
+
     }
 
 

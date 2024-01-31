@@ -6,6 +6,7 @@ import com.bnkrll.model.UpdateBuyInRequest;
 import com.bnkrll.service.SessionRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -47,10 +48,10 @@ public class SessionController {
         sessionRepository.save(currentSession);
     }
 
-    @DeleteMapping("/delete")
-    public void deleteCurrentSession(@RequestBody Session deleteSession
-    ) {
-        Session currentSession = sessionRepository.findById(deleteSession.getSessionId());
+    @DeleteMapping("/{id}")
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    public void deleteCurrentSession(@PathVariable String id) {
+        sessionRepository.deleteById(id);
     }
 
 
