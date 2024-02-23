@@ -25,7 +25,7 @@ public class SessionController {
         this.sessionRepository = sessionRepository;
     }
 
-    @PostMapping("/submit-session")
+    @PostMapping("/save")
     public void saveSession(@RequestBody Session session) {
         sessionRepository.save(session);
     }
