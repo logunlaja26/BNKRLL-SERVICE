@@ -49,7 +49,7 @@ class DeleteSessionFlowTest {
         mockMvc.perform(delete("/api/session/" + SESSION_ID))
                 .andExpect(status().isNoContent());
 
-        assertThat(repository.findById(SESSION_ID)).isNull();
+        assertThat(repository.findById(SESSION_ID)).isEmpty();
 
 
 

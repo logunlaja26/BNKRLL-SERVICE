@@ -51,7 +51,7 @@ class UpdateSessionFlowTest {
                         .content(expectedSessionsResponse))
                 .andExpect(status().isOk());
 
-        assertThat(repository.findById(SESSION_ID).getBuyin()).isEqualTo(BigDecimal.valueOf(400));
+        assertThat(repository.findById(SESSION_ID).get().getBuyin()).isEqualTo(BigDecimal.valueOf(400));
 
 
     }

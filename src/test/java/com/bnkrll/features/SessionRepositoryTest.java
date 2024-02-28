@@ -1,5 +1,6 @@
 package com.bnkrll.features;
 
+import com.bnkrll.exceptions.SessionNotFoundException;
 import com.bnkrll.model.Session;
 import com.bnkrll.service.InMemorySessionRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,9 +11,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -78,10 +81,7 @@ class SessionRepositoryTest {
 
         repository.deleteById("1");
 
-        assertThat(repository.findById("1")).isNull();
+        assertThat(repository.findById("1")).isEmpty();
 
     }
-
-
-    // TODO Add test to throw exception when sessionId is not available
 }
