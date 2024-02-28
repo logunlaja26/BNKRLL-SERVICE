@@ -1,5 +1,6 @@
 package com.bnkrll.service;
 
+import com.bnkrll.exceptions.SessionNotFoundException;
 import com.bnkrll.model.Session;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
@@ -20,9 +21,8 @@ public class InMemorySessionRepository implements SessionRepository {
     }
 
     @Override
-    public Session findById(String sessionID) {
-        // Return optional
-        return this.data.get(sessionID);
+    public Optional<Session> findById(String sessionID) {
+        return Optional.ofNullable(this.data.get(sessionID));
     }
 
     @Override

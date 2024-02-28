@@ -40,10 +40,8 @@ public class SessionController {
     @PatchMapping("/buy-in")
     public void updateBuyInOfSession(@RequestBody UpdateBuyInRequest updatedSession
     ) {
-        Session currentSession = sessionRepository.findById(updatedSession.getSessionId());
-        if (null == currentSession) {
-            throw new SessionNotFoundException("Session can't be located in the database - " + updatedSession.getSessionId());
-        }
+        Session currentSession = sessionRepository.findById(updatedSession.getSessionId())
+                .orElseThrow(() -> new SessionNotFoundException("Session can't be located in the database - " + updatedSession.getSessionId()));
         currentSession.setBuyin(updatedSession.getBuyin());
         sessionRepository.save(currentSession);
     }
